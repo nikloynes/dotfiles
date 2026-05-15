@@ -1,0 +1,57 @@
+{
+    "workbench.startupEditor": "none",
+    "remote.SSH.remoteServerListenOnSocket": true,
+    "remote.SSH.remotePlatform": {
+        "oracle-playground": "linux"
+    },
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "explorer.confirmDragAndDrop": false,
+    "telemetry.telemetryLevel": "crash",
+    "explorer.confirmDelete": false,
+    "notebook.output.textLineLimit": 10000000,
+    "diffEditor.wordWrap": "on",
+    "editor.inlineSuggest.enabled": true,
+    "jupyter.askForKernelRestart": false,
+    "notebook.lineNumbers": "on",
+    "editor.minimap.enabled": false,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "on",
+    "python.sortImports.args": ["--profile", "black"],  // Optional: if you want to use black profile
+    // "python.sortImports.path": "/Users/nikloynes/.pyenv/shims/isort",  // Path to the globally installed isort
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "isort.args": ["--profile", "black"],
+    "python.formatting.provider": "black",  // If you are using black for formatting
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.banditEnabled": true,
+    "sqltools.useNodeRuntime": true,
+    "editor.semanticHighlighting.enabled": true,
+    "rainbow_csv.csv_lint_detect_trailing_spaces": true,
+    "files.associations": {
+        "*.toml": "toml"
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "githubPullRequests.pullBranch": "never",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "chat.agent.enabled": false,
+    "chat.customAgentInSubagent.enabled": false,
+    "chat.agent.thinking.terminalTools": false,
+    "workbench.colorTheme": "Dark Modern"
+
+}

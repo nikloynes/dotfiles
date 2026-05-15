@@ -1,0 +1,8 @@
+git
+zsh
+age
+curl
+wget
+pyenv
+nvim
+

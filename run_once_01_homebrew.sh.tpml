@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v brew >/dev/null 2>&1; then
+  exit 0
+fi
+
+if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
+  if grep -qi '^ID=steamos' /etc/os-release 2>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+fi
+
