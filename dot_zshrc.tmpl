@@ -105,7 +105,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="/Users/nikloynes/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin" -}}
+export PATH="/opt/homebrew/bin:$PATH"
+{{- end }}
 export EDITOR=nvim
 
 # uv shell completions

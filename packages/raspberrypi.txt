@@ -13,4 +13,5 @@ ufw
 fail2ban
 ffmpeg
 bat
+rclone
 
