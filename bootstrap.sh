@@ -28,5 +28,6 @@ else
   chmod 600 ~/.config/chezmoi/key.txt
 fi
 
-# 4) now init and apply dotfiles
-chezmoi init --apply git@github.com:nikloynes/dotfiles.git
+# 4) init and apply via HTTPS (public repo, no auth needed)
+# run_once_00 will generate the GitHub SSH key after clone
+chezmoi init --apply https://github.com/nikloynes/dotfiles.git
