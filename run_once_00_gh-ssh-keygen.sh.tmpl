@@ -8,6 +8,9 @@ if [[ -f "$KEY" ]]; then
   exit 0
 fi
 
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
 ssh-keygen -t ed25519 -C "{{ .github_email }}" -f "$KEY" -N ""
 
 echo ""
@@ -20,4 +23,5 @@ echo "================================================"
 echo ""
 read -rp "Press Enter once you have added the key to GitHub..."
 
-ssh -T git@github.com || true
+# probably we haven't populate .ssh/config yet, so let's pass explicitly
+ssh -T -i "$KEY" git@github.com || true
