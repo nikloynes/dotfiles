@@ -69,7 +69,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zoxide fzf atuin)
+# ...existing code...
+plugins=(git)
+
+# load optional plugins if available
+command -v atuin >/dev/null 2>&1 && plugins+=(atuin)
+command -v zoxide >/dev/null 2>&1 && plugins+=(zoxide)
+command -v fzf >/dev/null 2>&1 && plugins+=(fzf)
 
 source $ZSH/oh-my-zsh.sh
 

@@ -10,9 +10,9 @@ tmux
 htop
 rsync
 atuin
+zoxide
 bat
 fzf
 ripgrep
 fd-find
 ffmpeg
-

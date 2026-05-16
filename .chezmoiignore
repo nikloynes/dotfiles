@@ -6,3 +6,11 @@
 .config/raycast
 .config/iterm2
 {{ end }}
+
+# repo-level files — not dotfiles, should not be deployed to ~
+README.md
+LICENSE
+Brewfile
+Brewfile.linux
+bootstrap.sh
+packages
