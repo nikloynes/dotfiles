@@ -7,10 +7,16 @@ fi
 
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # make brew available immediately — works for both Apple Silicon and Intel
+  if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
 
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   if grep -qi '^ID=steamos' /etc/os-release 2>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi
 fi
-

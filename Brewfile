@@ -8,8 +8,6 @@ brew "atuin"
 brew "bat"
 # Yet another cross-platform graphical process/system monitor
 brew "bottom"
-# Manage your dotfiles across multiple diverse machines, securely
-brew "chezmoi"
 # Statistics utility to count lines of code
 brew "cloc"
 # GNU data recovery tool
@@ -36,8 +34,6 @@ brew "neovim"
 brew "nmap"
 # Shell command parallelization utility
 brew "portaudio"
-# Python version management
-brew "pyenv"
 # Rsync for cloud storage
 brew "rclone"
 # SOund eXchange: universal sound sample translator
@@ -47,6 +43,8 @@ brew "unison"
 # zsh terminal
 brew "zsh"
 # Orchestrates virtual Ubuntu instances
+brew "fzf"
+brew "zoxide"
 cask "multipass"
 # Scientific and technical publishing system built on Pandoc
 cask "quarto"

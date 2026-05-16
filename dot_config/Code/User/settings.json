@@ -19,7 +19,6 @@
     "editor.formatOnSave": true,
     "editor.lineNumbers": "on",
     "python.sortImports.args": ["--profile", "black"],  // Optional: if you want to use black profile
-    // "python.sortImports.path": "/Users/nikloynes/.pyenv/shims/isort",  // Path to the globally installed isort
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"

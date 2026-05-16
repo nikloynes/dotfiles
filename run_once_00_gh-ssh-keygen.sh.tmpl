@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+KEY="$HOME/.ssh/github_{{ .chezmoi.hostname }}"
+
+if [[ -f "$KEY" ]]; then
+  echo "SSH key already exists, skipping"
+  exit 0
+fi
+
+ssh-keygen -t ed25519 -C "{{ .github_email }}" -f "$KEY" -N ""
+
+echo ""
+echo "================================================"
+echo "New SSH key generated. Add this public key to GitHub:"
+echo "https://github.com/settings/ssh/new"
+echo ""
+cat "${KEY}.pub"
+echo "================================================"
+echo ""
+read -rp "Press Enter once you have added the key to GitHub..."
+
+ssh -T git@github.com || true

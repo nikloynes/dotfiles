@@ -1,0 +1,10 @@
+encryption = "age"
+
+[age]
+recipient = "{{ promptStringOnce . "age_recipient" "Enter your age public key (age1...)" }}"
+identity = "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+
+[data]
+github_username = "{{ promptStringOnce . "github_username" "Enter your GitHub username" }}"
+github_email = "{{ promptStringOnce . "github_email" "Enter your GitHub email" }}"
+

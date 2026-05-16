@@ -3,6 +3,11 @@ set -euo pipefail
 
 SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 
+is_raspberry_pi() {
+  grep -qi 'raspberry pi' /proc/device-tree/model 2>/dev/null || \
+  grep -qi 'raspbian\|raspberry' /etc/os-release 2>/dev/null
+}
+
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
   brew bundle --file "$SOURCE_DIR/Brewfile"
 
@@ -10,6 +15,10 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   if command -v pkg >/dev/null 2>&1 || [[ "${PREFIX:-}" == *"com.termux"* ]]; then
     pkg update -y
     xargs -a "$SOURCE_DIR/packages/termux.txt" pkg install -y
+
+  elif is_raspberry_pi; then
+    sudo apt-get update
+    xargs -a "$SOURCE_DIR/packages/raspberrypi.txt" sudo apt-get install -y
 
   elif grep -qi '^ID=steamos' /etc/os-release 2>/dev/null; then
     if command -v brew >/dev/null 2>&1; then
@@ -19,7 +28,7 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
     fi
 
   elif command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update
+    sudo apt update
     xargs -a "$SOURCE_DIR/packages/apt.txt" sudo apt install -y
 
   else
@@ -29,4 +38,11 @@ fi
 
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
+# use full path to uv in case PATH not yet updated in this session
+UV="$HOME/.local/bin/uv"
+if [[ -f "$UV" ]]; then
+  "$UV" tool install ruff
+  "$UV" tool install basedpyright
 fi

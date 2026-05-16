@@ -4,5 +4,7 @@ age
 curl
 wget
 pyenv
+nodejs
 nvim
-
+ssh
+cronie

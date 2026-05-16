@@ -4,15 +4,13 @@ curl
 wget
 age
 vim
-neovim
 nodejs
+nvim
 tmux
 htop
 rsync
-atuin
-bat
-fzf
-ripgrep
-fd-find
+ufw
+fail2ban
 ffmpeg
+bat
 

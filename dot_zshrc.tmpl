@@ -48,7 +48,6 @@ ZSH_THEME="robbyrussell"
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
-
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
@@ -70,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zoxide fzf atuin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,17 +98,19 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#export PATH="/opt/homebrew/bin/python3.11/bin:$PATH"
-#export PATH="/opt/homebrew/bin/python3.11/libexec/bin:$PATH"
-#alias python="python3.11"
-#alias pip="pip3.11"
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
-# poetry
 export PATH="/Users/nikloynes/.local/bin:$PATH"
-export EDITOR=nano
+export EDITOR=nvim
+
+# uv shell completions
+if command -v uv >/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 eval "$(atuin init zsh)"
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
