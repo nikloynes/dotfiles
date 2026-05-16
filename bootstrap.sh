@@ -12,7 +12,8 @@ else
 fi
 
 sh -c "$(curl -fsLS https://get.chezmoi.io)"
-export PATH="$HOME/.local/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # 2) create chezmoi config dir
 mkdir -p ~/.config/chezmoi
