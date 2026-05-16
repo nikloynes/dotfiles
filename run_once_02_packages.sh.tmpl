@@ -45,4 +45,6 @@ UV="$HOME/.local/bin/uv"
 if [[ -f "$UV" ]]; then
   "$UV" tool install ruff
   "$UV" tool install basedpyright
+  "$UV" python install 3.14
+  "$UV" python pin 3.14
 fi

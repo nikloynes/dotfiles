@@ -117,6 +117,12 @@ if command -v uv >/dev/null 2>&1; then
   eval "$(uv generate-shell-completion zsh)"
 fi
 
+# add python alias to uv
+if command -v uv >/dev/null 2>&1; then
+  alias python="uv run python"
+  alias python3="uv run python"
+fi
+
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 eval "$(atuin init zsh)"
 
