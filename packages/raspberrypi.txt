@@ -5,7 +5,7 @@ wget
 age
 vim
 nodejs
-nvim
+neovim
 tmux
 htop
 rsync
@@ -14,4 +14,3 @@ fail2ban
 ffmpeg
 bat
 rclone
-

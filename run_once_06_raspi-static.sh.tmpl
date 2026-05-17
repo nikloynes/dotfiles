@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+is_raspberry_pi() {
+  grep -qi 'raspberry pi' /proc/device-tree/model 2>/dev/null || \
+  grep -qi 'raspbian\|raspberry' /etc/os-release 2>/dev/null
+}
+
+if ! is_raspberry_pi; then
+  exit 0
+fi
+
+# Get the active WiFi connection name and current gateway
+CONN=$(nmcli -t -f NAME,TYPE con show --active | grep wireless | cut -d: -f1 | head -1)
+GATEWAY=$(ip route show default | awk '/default/ {print $3}' | head -1)
+PREFIX=$(ip -o -f inet addr show wlan0 | awk '{print $4}' | cut -d/ -f2)
+
+if [[ -z "$CONN" ]]; then
+  echo "No active WiFi connection found, skipping static IP setup"
+  exit 0
+fi
+
+echo "Active connection: $CONN"
+echo "Current gateway: $GATEWAY"
+
+if command -v gum >/dev/null 2>&1; then
+  IP=$(gum input --placeholder "Enter static IP e.g. ${GATEWAY%.*}.100")
+else
+  read -rp "Enter static IP for network '$CONN' (e.g. ${GATEWAY%.*}.100): " IP
+fi
+
+if [[ -z "$IP" ]]; then
+  echo "No IP entered, skipping"
+  exit 0
+fi
+
+sudo nmcli con mod "$CONN" \
+  ipv4.addresses "${IP}/${PREFIX:-24}" \
+  ipv4.gateway "$GATEWAY" \
+  ipv4.dns "8.8.8.8 8.8.4.4" \
+  ipv4.method manual
+
+sudo nmcli con up "$CONN"
+echo "Static IP $IP set for connection '$CONN'"
