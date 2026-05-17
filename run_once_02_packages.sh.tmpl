@@ -3,10 +3,8 @@ set -euo pipefail
 
 SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 
-is_raspberry_pi() {
-  grep -qi 'raspberry pi' /proc/device-tree/model 2>/dev/null || \
-  grep -qi 'raspbian\|raspberry' /etc/os-release 2>/dev/null
-}
+# get is_raspberry_pi from source/lib.sh
+source "$SOURCE_DIR/scripts/lib.sh"
 
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
   brew bundle --file "$SOURCE_DIR/Brewfile"
