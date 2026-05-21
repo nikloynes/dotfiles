@@ -24,7 +24,12 @@ else
   exit 1
 fi
 
-sh -c "$(curl -fsLS https://get.chezmoi.io)"
+if ! [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+  sh -c "$(curl -fsLS https://get.chezmoi.io)"
+command -v pkg >/dev/null 2>&1 || [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+  pkg install chezmoi
+fi
+
 
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
