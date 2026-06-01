@@ -3,7 +3,6 @@ zsh
 age
 curl
 wget
-pyenv
 nodejs
 neovim
 ssh
@@ -11,3 +10,16 @@ cronie
 which
 termux-services
 uv
+zsh
+atuin
+cmake
+vim
+tmux
+htop
+rsync
+ufw
+fail2ban
+ffmpeg
+bat
+rclone
+zoxide
