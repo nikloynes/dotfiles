@@ -1,11 +1,12 @@
 git
 zsh
+atuin
+cmake
 curl
 wget
 age
 vim
 nodejs
-neovim
 tmux
 htop
 rsync
@@ -14,3 +15,4 @@ fail2ban
 ffmpeg
 bat
 rclone
+zoxide
