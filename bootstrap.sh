@@ -4,14 +4,32 @@ set -euo pipefail
 # 1) install dependencies
 if [[ "$(uname -s)" == "Darwin" ]]; then
   if ! command -v brew >/dev/null 2>&1; then
+    echo "OS: MacOS"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   brew install age git curl
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  if command -v pkg >/dev/null 2>&1 || [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+    echo "OS: Termux (Android)"
+    pkg update -y && pkg install -y curl age git
+  elif command -v apt >/dev/null 2>&1 || ! [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+    echo "OS: Ubuntu/Debian"
+    sudo apt update && sudo apt install -y curl age git
+  elif grep -qi '^ID=steamos' /etc/os-release 2>/dev/null; then
+    echo "OS: Steam OS"
+    pacman -S curl age git
+  fi
 else
-  sudo apt-get update && sudo apt-get install -y curl age git
+  echo "Unsupported OS: $(uname -s)"
+  exit 1
 fi
 
-sh -c "$(curl -fsLS https://get.chezmoi.io)"
+if ! [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+  sh -c "$(curl -fsLS https://get.chezmoi.io)"
+elif command -v pkg >/dev/null 2>&1 || [[ "${PREFIX:-}" == *"com.termux"* ]]; then
+  pkg install chezmoi
+fi
+
 
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
