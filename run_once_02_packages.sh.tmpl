@@ -7,16 +7,14 @@ set -euo pipefail
 
 SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 
-# get is_raspberry_pi from source/lib.sh
 source "$SOURCE_DIR/scripts/lib.sh"
 
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
   brew bundle --file "$SOURCE_DIR/Brewfile"
 
 elif [[ "{{ .chezmoi.os }}" == "android" ]]; then
-  if command -v pkg >/dev/null 2>&1 || [[ "${PREFIX:-}" == *"com.termux"* ]]; then
-    pkg update -y
-    xargs -a "$SOURCE_DIR/packages/termux.txt" pkg install -y
+  pkg update -y
+  xargs -a "$SOURCE_DIR/packages/termux.txt" pkg install -y
 
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   if is_raspberry_pi; then
@@ -39,12 +37,14 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   fi
 fi
 
-# should not hit the curl condition as we have installed ruff via pkg
 if ! command -v uv >/dev/null 2>&1; then
-  curl -LsSf https://astral.sh/uv/install.sh | sh
+  if [[ "{{ .chezmoi.os }}" != "android" ]]; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  else
+    echo "Skipping uv install: not supported on Android/Termux"
+  fi
 fi
 
-# use full path to uv in case PATH not yet updated in this session
 UV="$HOME/.local/bin/uv"
 if [[ -f "$UV" ]]; then
   "$UV" tool install ruff
