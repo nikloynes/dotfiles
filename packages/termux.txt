@@ -10,3 +10,4 @@ ssh
 cronie
 which
 termux-services
+uv
