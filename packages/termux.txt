@@ -5,7 +5,6 @@ curl
 wget
 nodejs
 neovim
-ssh
 cronie
 which
 termux-services
@@ -17,8 +16,6 @@ vim
 tmux
 htop
 rsync
-ufw
-fail2ban
 ffmpeg
 bat
 rclone
