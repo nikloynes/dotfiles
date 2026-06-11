@@ -37,6 +37,12 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   fi
 fi
 
+if ! command -v atuin >/dev/null 2>&1; then
+  if [[ "{{ .chezmoi.os }}" != "android" ]]; then
+    curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+  fi
+fi
+
 if ! command -v uv >/dev/null 2>&1; then
   if [[ "{{ .chezmoi.os }}" != "android" ]]; then
     curl -LsSf https://astral.sh/uv/install.sh | sh

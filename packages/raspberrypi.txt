@@ -1,6 +1,5 @@
 git
 zsh
-atuin
 cmake
 curl
 wget

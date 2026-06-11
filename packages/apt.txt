@@ -10,7 +10,6 @@ tmux
 htop
 rsync
 rclone
-atuin
 zoxide
 bat
 fzf
