@@ -13,9 +13,18 @@ fi
 # set zsh as default shell if not already
 ZSH_PATH="$(command -v zsh)"
 if [[ "$SHELL" != "$ZSH_PATH" ]]; then
-  # ensure zsh is in /etc/shells
-  if ! grep -qF "$ZSH_PATH" /etc/shells; then
-    echo "$ZSH_PATH" | sudo tee -a /etc/shells
+  if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
+    # macOS: chsh doesn't need sudo for the current user
+    if ! grep -qF "$ZSH_PATH" /etc/shells; then
+      echo "$ZSH_PATH" | sudo tee -a /etc/shells
+    fi
+    chsh -s "$ZSH_PATH"
+  elif [[ "{{ .chezmoi.os }}" != "android" ]]; then
+    # Linux (Ubuntu, Raspberry Pi, SteamOS): usermod is reliable in non-interactive scripts
+    if ! grep -qF "$ZSH_PATH" /etc/shells; then
+      echo "$ZSH_PATH" | sudo tee -a /etc/shells
+    fi
+    sudo usermod --shell "$ZSH_PATH" "$USER"
   fi
-  sudo chsh -s "$ZSH_PATH" "$USER"
+  # Termux (android): shell is managed by Termux itself, skip
 fi
