@@ -105,6 +105,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# alias batcat to bat on non mac-os
+if command -v batcat >/dev/null 2>&1; then
+  alias bat="batcat"
+fi
+
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 {{ if eq .chezmoi.os "darwin" -}}
