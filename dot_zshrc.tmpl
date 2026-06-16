@@ -70,14 +70,17 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # ...existing code...
+source $ZSH/oh-my-zsh.sh
+
 plugins=(git)
 
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH:"
+
+. "$HOME/.atuin/bin/env"
 # load optional plugins if available
-command -v atuin >/dev/null 2>&1 && plugins+=(atuin)
 command -v zoxide >/dev/null 2>&1 && plugins+=(zoxide)
 command -v fzf >/dev/null 2>&1 && plugins+=(fzf)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -105,11 +108,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# alias batcat to bat on non mac-os
+if command -v batcat >/dev/null 2>&1; then
+  alias bat="batcat"
+fi
+
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
-{{ if eq .chezmoi.os "darwin" -}}
-export PATH="/opt/homebrew/bin:$PATH"
-{{- end }}
+
 export EDITOR=nvim
 
 # uv shell completions
@@ -122,6 +128,8 @@ if command -v uv >/dev/null 2>&1; then
   alias python="uv run python"
   alias python3="uv run python"
 fi
+
+export PATH="$HOME/.atuin/bin:$PATH"
 
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 eval "$(atuin init zsh)"
