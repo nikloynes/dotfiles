@@ -44,3 +44,7 @@ sudo nmcli con mod "$CONN" \
 
 sudo nmcli con up "$CONN"
 echo "Static IP $IP set for connection '$CONN'"
+cat > /home/${USER}/.static-ip << EOF 
+$IP 
+EOF
+
