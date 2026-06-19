@@ -15,3 +15,5 @@ ffmpeg
 bat
 rclone
 zoxide
+snapd
+

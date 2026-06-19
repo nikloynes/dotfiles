@@ -10,14 +10,13 @@ SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 source "$SOURCE_DIR/scripts/lib.sh"
 
 if is_raspberry_pi; then
-  echo "installing neovim from GH for newest version due to slow raspbian..."
-  echo "this will take forever. get a coffee."
-  git clone https://github.com/neovim/neovim.git
-  cd neovim
-  make CMAKE_BUILD_TYPE=RelWithDebInfo
-  cd build
-  cpack -G DEB
-  sudo dpkg -i nvim-linux64.deb
+  echo "installing neovim from snap..."
+  if command -v snap >/dev/null 2>&1; then
+    snap install --yes neovim
+  else
+    echo "snap not installed, installing..."
+    apt install snapd
+  fi
 fi
 
 # back up existing config if present
