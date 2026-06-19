@@ -12,10 +12,10 @@ source "$SOURCE_DIR/scripts/lib.sh"
 if is_raspberry_pi; then
   echo "installing neovim from snap..."
   if command -v snap >/dev/null 2>&1; then
-    snap install nvim --classic
+    sudo snap install nvim --classic
   else
     echo "snap not installed, installing..."
-    apt install snapd
+    sudo apt install snapd
   fi
 fi
 
