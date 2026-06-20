@@ -4,7 +4,6 @@ curl
 wget
 age
 vim
-neovim
 nodejs
 tmux
 htop
