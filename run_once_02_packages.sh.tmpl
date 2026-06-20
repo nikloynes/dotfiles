@@ -30,7 +30,7 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
 
   elif command -v apt-get >/dev/null 2>&1; then
     sudo apt update
-    xargs -a "$SOURCE_DIR/packages/apt.txt" sudo apt install -y --ingore-missing
+    xargs -a "$SOURCE_DIR/packages/apt.txt" sudo apt install -y --ignore-missing
 
   else
     echo "No supported package manager found"
