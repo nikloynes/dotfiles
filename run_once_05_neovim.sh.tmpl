@@ -10,13 +10,16 @@ SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 source "$SOURCE_DIR/scripts/lib.sh"
 
 if is_raspberry_pi; then
-  echo "installing neovim from snap..."
-  if command -v snap >/dev/null 2>&1; then
-    sudo snap install nvim --classic
-  else
-    echo "snap not installed, installing..."
-    sudo apt install snapd
-  fi
+  sudo add-apt-repository ppa:neovim-ppa/stable -y
+  sudo apt update 
+  sudo apt install neovim
+  # echo "installing neovim from snap..."
+  # if command -v snap >/dev/null 2>&1; then
+  #   sudo snap install nvim --classic
+  # else
+  #   echo "snap not installed, installing..."
+  #   sudo apt install snapd
+  # fi
 fi
 
 # back up existing config if present

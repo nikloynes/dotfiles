@@ -15,5 +15,4 @@ ffmpeg
 bat
 rclone
 zoxide
-snapd
-
+software-properties-common
