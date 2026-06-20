@@ -9,6 +9,25 @@ SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 
 source "$SOURCE_DIR/scripts/lib.sh"
 
+install_apt_packages() {
+  local file="$1"
+  local pkg
+  local pkgs=()
+
+  while IFS= read -r pkg || [[ -n "$pkg" ]]; do
+    [[ -z "$pkg" || "$pkg" == \#* ]] && continue
+    if apt-cache show "$pkg" >/dev/null 2>&1; then
+      pkgs+=("$pkg")
+    else
+      echo "Skipping missing package: $pkg"
+    fi
+  done < "$file"
+
+  if ((${#pkgs[@]})); then
+    sudo apt-get install -y "${pkgs[@]}"
+  fi
+}
+
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
   brew bundle --file "$SOURCE_DIR/Brewfile"
 
@@ -19,7 +38,7 @@ elif [[ "{{ .chezmoi.os }}" == "android" ]]; then
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   if is_raspberry_pi; then
     sudo apt-get update
-    xargs -a "$SOURCE_DIR/packages/raspberrypi.txt" sudo apt-get install -y
+    install_apt_packages "$SOURCE_DIR/packages/raspberrypi.txt"
 
   elif grep -qi '^ID=steamos' /etc/os-release 2>/dev/null; then
     if command -v brew >/dev/null 2>&1; then
@@ -29,8 +48,8 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
     fi
 
   elif command -v apt-get >/dev/null 2>&1; then
-    sudo apt update
-    xargs -a "$SOURCE_DIR/packages/apt.txt" sudo apt install -y --ignore-missing
+    sudo apt-get update
+    install_apt_packages "$SOURCE_DIR/packages/apt.txt"
 
   else
     echo "No supported package manager found"
