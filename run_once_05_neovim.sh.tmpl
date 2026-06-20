@@ -9,7 +9,7 @@ NVIM_CONFIG="$HOME/.config/nvim"
 SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 source "$SOURCE_DIR/scripts/lib.sh"
 
-elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then  
+if [[ "{{ .chezmoi.os }}" == "linux" ]]; then  
   # note - this will throw an error for steamos!
   sudo add-apt-repository ppa:neovim-ppa/stable -y
   sudo apt update 
