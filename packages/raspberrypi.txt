@@ -16,3 +16,5 @@ bat
 rclone
 zoxide
 software-properties-common
+sqlite3
+jq

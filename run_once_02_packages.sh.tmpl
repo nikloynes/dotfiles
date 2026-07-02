@@ -57,7 +57,12 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
 fi
 
 if ! command -v atuin >/dev/null 2>&1; then
-  if [[ "{{ .chezmoi.os }}" != "android" ]]; then
+  if is_raspberry_pi; then
+    ATUIN_VERSION="18.12.0"
+    curl --proto '=https' --tlsv1.2 -LsSf \
+      "https://github.com/atuinsh/atuin/releases/download/v${ATUIN_VERSION}/atuin-installer.sh" | sh
+  fi
+  elif [[ "{{ .chezmoi.os }}" != "android" ]]; then
     curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
   fi
 fi

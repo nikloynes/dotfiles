@@ -20,3 +20,5 @@ ffmpeg
 bat
 rclone
 zoxide
+sqlite3
+jq

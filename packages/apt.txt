@@ -17,3 +17,5 @@ fd-find
 ffmpeg
 add-apt-repository
 software-properties-common
+sqlite3
+jq
