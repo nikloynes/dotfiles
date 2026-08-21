@@ -22,3 +22,4 @@ rclone
 zoxide
 sqlite
 jq
+openssh

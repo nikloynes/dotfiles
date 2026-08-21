@@ -35,6 +35,12 @@ elif [[ "{{ .chezmoi.os }}" == "android" ]]; then
   pkg update -y
   xargs -a "$SOURCE_DIR/packages/termux.txt" pkg install -y
 
+  if [[ ! -d ~/.termux/boot ]]; then
+    echo "  Termux:Boot app not detected (no ~/.termux/boot dir)."
+    echo "  Install it from F-Droid: https://f-droid.org/packages/com.termux.boot/"
+  fi
+  mkdir -p ~/.termux/boot
+
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
   if is_raspberry_pi; then
     sudo apt-get update

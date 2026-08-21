@@ -7,6 +7,12 @@
 .config/iterm2
 {{ end }}
 
+# termux heartbeat script
+{{ if ne .chezmoi.os "android" }}
+.local/bin/heartbeat.sh
+.termux/boot/start-services.sh
+{{ end }}
+
 # repo-level files — not dotfiles, should not be deployed to ~
 README.md
 LICENSE

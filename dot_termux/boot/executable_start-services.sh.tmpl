@@ -1,0 +1,10 @@
+{{ if eq .chezmoi.os "android" -}}
+#!/data/data/com.termux/files/usr/bin/bash
+{{ else -}}
+#!/usr/bin/env bash
+{{ end -}}
+set -euo pipefail
+
+termux-wake-lock
+sv-enable crond
+sv-enable sshd

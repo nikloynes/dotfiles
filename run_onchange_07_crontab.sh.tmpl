@@ -1,0 +1,12 @@
+{{ if eq .chezmoi.os "android" -}}
+#!/data/data/com.termux/files/usr/bin/bash
+{{ else -}}
+#!/usr/bin/env bash
+{{ end -}}
+set -euo pipefail
+
+# hash of crontab contents, so this script re-runs only when the crontab changes
+# {{ include "packages/crontab_termux.txt" | sha256sum }}
+
+SOURCE_DIR="{{ .chezmoi.sourceDir }}"
+crontab "$SOURCE_DIR/packages/crontab_termux.txt"
