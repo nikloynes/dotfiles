@@ -6,5 +6,9 @@
 set -euo pipefail
 
 termux-wake-lock
+
 sv-enable crond
 sv-enable sshd
+
+sv up crond
+sv up sshd
