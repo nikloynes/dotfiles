@@ -1,0 +1,14 @@
+{{ if ne .chezmoi.os "android" -}}
+#!/usr/bin/env bash
+exit 0
+{{ else -}}
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+# {{ include "packages/crontab_termux.txt" | sha256sum }}
+
+crontab "{{ .chezmoi.sourceDir }}/packages/crontab_termux.txt"
+
+echo "Obsidian sync cron job installed."
+echo "Run the bisync once with --resync to initialise it."
+{{ end -}}

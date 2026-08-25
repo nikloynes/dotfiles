@@ -1,0 +1,13 @@
+{{ if eq .chezmoi.os "android" -}}
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+if [[ ! -d "$HOME/storage/shared" ]]; then
+  echo "Requesting Termux shared-storage access..."
+  termux-setup-storage
+fi
+
+{{ else -}}
+#!/usr/bin/env bash
+exit 0
+{{ end -}}

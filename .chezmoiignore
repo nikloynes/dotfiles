@@ -10,6 +10,7 @@
 # termux heartbeat script
 {{ if ne .chezmoi.os "android" }}
 .local/bin/heartbeat.sh
+.local/bin/obsidian-icloud-sync.sh
 .termux/boot/start-services.sh
 {{ end }}
 
