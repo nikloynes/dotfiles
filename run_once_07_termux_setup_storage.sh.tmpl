@@ -2,11 +2,17 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
 
+if [[ ! -x /system/bin/app_process ]]; then
+  echo "Android system unavailable; skipping termux-setup-storage."
+  echo "Run termux-setup-storage in the real Termux app."
+  exit 0
+fi
+
 if [[ ! -d "$HOME/storage/shared" ]]; then
-  echo "Requesting Termux shared-storage access..."
   termux-setup-storage
 fi
 
+mkdir -p "$HOME/storage/shared/Exchange/Dollys second coming"
 {{ else -}}
 #!/usr/bin/env bash
 exit 0
