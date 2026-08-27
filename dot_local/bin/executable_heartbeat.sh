@@ -3,7 +3,7 @@
 LOG=~/.local/state/heartbeat.log
 mkdir -p "$(dirname "$LOG")"
 
-IP=$(ip -4 addr show wlan0 2>/dev/null | awk '/inet /{print $2}' | cut -d/ -f1)
+IP=$(ifconfig 2>/dev/null | awk '/^wlan0:/{found=1} found && /inet /{print $2; exit}')
 
 {
   echo "$(date '+%Y-%m-%d %H:%M:%S') heartbeat OK"
