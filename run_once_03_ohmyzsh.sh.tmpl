@@ -19,12 +19,14 @@ if [[ "$SHELL" != "$ZSH_PATH" ]]; then
       echo "$ZSH_PATH" | sudo tee -a /etc/shells
     fi
     chsh -s "$ZSH_PATH"
-  elif [[ "{{ .chezmoi.os }}" != "android" ]]; then
+  elif [[ "{{ .chezmoi.os }}" == "android" ]]; then
+    # Termux's chsh (termux-tools) sets the login shell without touching /etc/shells
+    chsh -s zsh
+  else
     # Linux (Ubuntu, Raspberry Pi, SteamOS): usermod is reliable in non-interactive scripts
     if ! grep -qF "$ZSH_PATH" /etc/shells; then
       echo "$ZSH_PATH" | sudo tee -a /etc/shells
     fi
     sudo usermod --shell "$ZSH_PATH" "$USER"
   fi
-  # Termux (android): shell is managed by Termux itself, skip
 fi
